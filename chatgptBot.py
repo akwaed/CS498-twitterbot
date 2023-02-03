@@ -10,8 +10,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
 auth = tweepy.OAuth1UserHandler(
-    "xkoE1WFTIxzudZZmfdEYX5lhZ", "wqme6fzwFdHz8HTrm0e15ca3K7V2eVexMePQ3px9t7L2a0Mw7w",
-     "1551707928184455174-vsyC8C4rE1vA058igsQXAW2SU3B28E", "egxhRJojKFRDF9zIH6wBtLA7bW3ts2qlL7ZR69zCSWIxj"
+    "hRxPLfji4d3gh4U8ACY7cevlw", "9irTEkc9UAmDqD7mAIIGHpreNboOuOq0fJhKggXppCdom2HqNw",
+     "1551707928184455174-3mGdfWvSJKINp00CxxswmIXvDL8Uyd", "XdXe89xJbKsIFZxRebSTJC86bEchzcmEZhLUfyKWVEp9M"
 )
 api = tweepy.API(auth)
 
@@ -20,7 +20,7 @@ def check_mentions(api, keywords, since_id):
     new_since_id = since_id
     for tweet in tweepy.Cursor(api.mentions_timeline,
         since_id=since_id).items():
-        print(tweet)
+        print(tweet.text)
         new_since_id = max(tweet.id, new_since_id)
         if tweet.in_reply_to_status_id is not None:
             continue
@@ -31,7 +31,7 @@ def check_mentions(api, keywords, since_id):
                 tweet.user.follow()
 
             api.update_status(
-                status="Please reach us via DM",
+                status="Please reach us via DMk",
                 in_reply_to_status_id=tweet.id,
             )
     return new_since_id
