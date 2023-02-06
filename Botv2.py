@@ -1,6 +1,12 @@
 import tweepy
 import time
 from datetime import datetime
+import logging
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
+
 
 # Twitter API credentials
 api_key  = "8FpCdvA1XvncJZBkkO9Rd97r8"
@@ -29,6 +35,7 @@ if initialisation_resp.data != None:
 
 # Looking for mentions tweets in an endless loop
 while True:
+    logger.info("Retrieving mentions")
     response = client.get_users_mentions(client_id, since_id=start_id)
 
     # Reply Code
@@ -36,6 +43,7 @@ while True:
         for tweet in response.data:
             try:
                 print(tweet.text)
+                logger.info(f"Answering to {tweet.user.name}")
                 client.create_tweet(in_reply_to_tweet_id=tweet.id, text=message)
                 start_id = tweet.id
             except Exception as error:
