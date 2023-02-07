@@ -1,6 +1,8 @@
 import tweepy
 import time
 from datetime import datetime
+import openai
+import requests
 
 # Twitter API credentials
 api_key  = "8FpCdvA1XvncJZBkkO9Rd97r8"
@@ -15,8 +17,26 @@ client = tweepy.Client(bearer_token, api_key, api_secret, access_token, access_t
 auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_token_secret)
 api = tweepy.API(auth)
 
-# Message to reply with if someone mentions the bot
-message = "Our bot works Perfect, Team Twitter API is awsome"
+# Set up OpenAI API key
+openai.api_key = "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"
+
+# Define a function to generate a response from chatGPT
+def generate_response(prompt):
+    try:
+        completions = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=prompt,
+            max_tokens=100,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+
+        message = completions.choices[0].text
+        return message
+    except requests.exceptions.RequestException as e:
+        return "Error: failed to generate response from chatGPT. Please try again later."
+
 
 # Bot's unique ID
 client_id = client.get_me().data.id
@@ -35,7 +55,8 @@ while True:
     if response.data != None:
         for tweet in response.data:
             try:
-                print(tweet.text)
+                reply=(tweet.text)
+                message=generate_response(reply)
                 client.create_tweet(in_reply_to_tweet_id=tweet.id, text=message)
                 start_id = tweet.id
             except Exception as error:
