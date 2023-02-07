@@ -1,8 +1,6 @@
 import tweepy
 import time
 from datetime import datetime
-import openai
-import requests
 
 # Twitter API credentials
 api_key  = "8FpCdvA1XvncJZBkkO9Rd97r8"
@@ -49,14 +47,14 @@ if initialisation_resp.data != None:
 
 # Looking for mentions tweets in an endless loop
 while True:
+    logger.info("Retrieving mentions")
     response = client.get_users_mentions(client_id, since_id=start_id)
 
     # Reply Code
     if response.data != None:
         for tweet in response.data:
             try:
-                reply=(tweet.text)
-                message=generate_response(reply)
+                print(tweet.text)
                 client.create_tweet(in_reply_to_tweet_id=tweet.id, text=message)
                 start_id = tweet.id
             except Exception as error:
