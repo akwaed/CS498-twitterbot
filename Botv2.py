@@ -10,6 +10,9 @@ access_token = "1551707928184455174-lKaMFMc25BKF6EQgV4ShOyzW99p0a9"
 bearer_token= "AAAAAAAAAAAAAAAAAAAAAGJ%2BlgEAAAAAzJgRHRS2gkGH94y%2FNPTGMJt%2Bu2k%3DgtbzOergnPFjRpVvRNW61aH2UI07vvyDkdKNLUzmXboDXbjyJP"
 access_token_secret = "hVVLuamRs9otYTYdmkpgZY3jHMdtGUCvpCecwNOrDK6jz"
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
+
 # Connecting to Twitter API
 client = tweepy.Client(bearer_token, api_key, api_secret, access_token, access_token_secret)
 
