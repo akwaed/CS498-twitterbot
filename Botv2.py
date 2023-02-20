@@ -61,6 +61,7 @@ while True:
             try:
                 print(tweet.text)
                 message= generate_response(tweet.text)
+                logger.info("Replying {tweepy.User.username}")
                 client.create_tweet(in_reply_to_tweet_id=tweet.id, text=message)
                 start_id = tweet.id
             except Exception as error:
