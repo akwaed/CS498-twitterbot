@@ -1,6 +1,7 @@
 import tweepy
 import time
 from datetime import datetime
+import openai
 
 # Twitter API credentials
 api_key  = "8FpCdvA1XvncJZBkkO9Rd97r8"
@@ -55,6 +56,7 @@ while True:
         for tweet in response.data:
             try:
                 print(tweet.text)
+                message= generate_response(tweet.text)
                 client.create_tweet(in_reply_to_tweet_id=tweet.id, text=message)
                 start_id = tweet.id
             except Exception as error:
