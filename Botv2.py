@@ -2,6 +2,7 @@ import tweepy
 import time
 from datetime import datetime
 import openai
+import logging
 
 # Twitter API credentials
 api_key  = "8FpCdvA1XvncJZBkkO9Rd97r8"
