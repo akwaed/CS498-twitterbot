@@ -21,7 +21,7 @@ auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_token_
 api = tweepy.API(auth)
 
 # Set up OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Define a function to generate a response from chatGPT
 def generate_response(prompt):
